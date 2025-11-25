@@ -9,35 +9,30 @@ const webhookUrl = process.env.WEBHOOK_URL;
 
 const bot = new Telegraf(BOT_TOKEN);
 
-// Handle the /start command
+// start handler
 export async function handleStartCommand(ctx) {
   const COMMAND = "/start";
+  const channelUrl = "t.me/fast_mobile_proxies";
+  const targetUrl = "t.me/+Wi1OuNu_tPRmOGQ0";
 
   // Welcome message with Markdown formatting
   const reply = `
-Unlock 100% Free VPN Access — No Limits, No Trials
+[
+Your gateway to rising higher, thinking bigger, and moving faster toward success, offering elite insights, high energy motivation, and wealth-driven strategies for those who refuse to settle, with all 2025 paying methods posted for free, including using spammed banking credentials for transactions or withdrawals, creating accounts with spammed or synthetic identities to launder funds, exploiting Cash App vulnerabilities for unauthorized transactions, manipulating PayPal's system with spammed accounts or credentials, and using batches of spammed credit card information and pins for swiping.](${targetUrl})
 
-Enjoy fast, secure, and private VPN connections with zero cost.
-No sign-ups. No restrictions.
-
-Instantly connect to global servers
-
-Stay protected on public Wi-Fi and keep your data safe
-
-High-speed performance for smooth browsing
-
-Works on all devices — anytime, anywhere
-
-Ready to browse without borders? Get today's list below
- `;
+`;
 
   try {
     await ctx.reply(reply, {
       parse_mode: "Markdown",
       reply_markup: {
         inline_keyboard: [
-          [{ text: "Get Today's Socks5", callback_data: "socks_5" }],
-          [{ text: "Get Today's Socks4", callback_data: "socks_4" }],
+          [
+            {
+              text: "All VPNs/Proxies posted Here",
+              url: channelUrl,
+            },
+          ]
         ],
       },
     });
@@ -46,26 +41,33 @@ Ready to browse without borders? Get today's list below
     console.error(`Something went wrong with the ${COMMAND} command:`, error);
   }
 }
-
-// Socks 5
-bot.action("socks_5", async (ctx) => {
-  await ctx.answerCbQuery();
-  await ctx.replyWithDocument({
-    url: "https://github.com/emerur/unlimited_bot/blob/main/socks5.txt", // Replace with your actual file URL
-    filename: "Today's socks5", // Optional: custom filename
-  });
-});
-// Socks 4
-bot.action("socks_4", async (ctx) => {
-  await ctx.answerCbQuery();
-  await ctx.replyWithDocument({
-    url: "https://github.com/emerur/unlimited_bot/blob/main/socks4.txt", // Replace with your actual file URL
-    filename: "Today's socks4", // Optional: custom filename
-  });
-});
+export async function sendImageCommand(ctx) {
+  const media = [
+    {
+      type: "photo",
+      media:
+        "https://raw.githubusercontent.com/walterexer/nexus/main/5850711984167390061_121.jpg",
+    },
+    {
+      type: "photo",
+      media:
+        "https://raw.githubusercontent.com/walterexer/nexus/main/6035277547899128770_119.jpg",
+    },
+    {
+      type: "photo",
+      media:
+        "https://raw.githubusercontent.com/walterexer/nexus/main/6e41d97254e9bc86d76f2b9572146467.jpg",
+    },      
+    
+  ];
+  // Send image first
+  await ctx.replyWithMediaGroup(media);
+}
 
 // Register the /start command handler
 bot.command("start", async (ctx) => {
+  // Send image first
+  await sendImageCommand(ctx);
   await handleStartCommand(ctx);
 });
 
